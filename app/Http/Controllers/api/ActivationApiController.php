@@ -24,7 +24,7 @@ class ActivationApiController extends Controller
             // Check the user's status
             if ($user->status === 'active') {
                 // User account is already active
-                return response()->json(['message' => 'حساب المستخدم مفعل بالفعل'], 409);
+                return response()->json(['message' => 'حساب المستخدم مفعل بالفعل'], 400);
             } elseif ($user->status === 'in-active') {
                 // User account is in-active
                 return response()->json(['message' =>'لم يتم تنشيط حساب المستخدم. يرجى استكمال عملية التنشيط.'], 200);

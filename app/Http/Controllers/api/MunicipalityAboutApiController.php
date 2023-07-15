@@ -19,6 +19,8 @@ class MunicipalityAboutApiController extends Controller
     {
         $municipalityAbout = MunicipalityAbout::first();
 
+        $municipalityAbout->image_url=$municipalityAbout->imageurl;
+        
         return response()->json([
             'data' => $municipalityAbout,
         ], Response::HTTP_OK);
