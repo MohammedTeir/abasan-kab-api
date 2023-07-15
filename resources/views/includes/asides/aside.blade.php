@@ -11,6 +11,9 @@
 
                 </ul>
              </li>
+
+             @if (Auth::user()->role->name=="مدير النظام" || Auth::user()->role->name=="مدير محتوى" )
+
              <li class="submenu-open">
                 <h6 class="submenu-hdr">نظام إدارة المحتوى</h6>
                 <ul>
@@ -79,6 +82,7 @@
 
                 </ul>
              </li>
+             @endif
 
              @if (Auth::user()->role->name=="مدير النظام")
              <li class="submenu-open">
