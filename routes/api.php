@@ -74,7 +74,6 @@ Route::prefix('municipality-settings')->group(function () {
     Route::group(['prefix' => 'news'], function () {
     Route::get('/', [NewsApiController::class, 'index']);
     Route::get('/{news}', [NewsApiController::class, 'show']);
-    Route::post('/', [NewsApiController::class, 'store']);
     });
 
 
