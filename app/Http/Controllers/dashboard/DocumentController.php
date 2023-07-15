@@ -27,40 +27,52 @@ class DocumentController extends Controller
         return response()->view('cms.documents.documentlist',['documents'=>$documents,'categories'=>$categories]);
     }
 
-    public function store(AddDocumentRequest $request)
-    {
-        try {
-            $category = DocumentCategory::findOrFail($request->input('document_category_id'));
+   /**
+ * Store a newly created resource in storage.
+ *
+ * @param \Illuminate\Http\Request $request
+ * @return \Illuminate\Http\JsonResponse
+ */
+public function store(AddDocumentRequest $request)
+{
+    try {
+        $category = DocumentCategory::findOrFail($request->input('document_category_id'));
 
-            // Upload and associate the image
-            $documentToStore = $request->file('document');
-            $currentYear = date('Y');
-            $currentMonth = date('m');
+        // Retrieve the uploaded document
+        $documentToStore = $request->file('document');
 
-            $ex = $documentToStore->getClientOriginalExtension();
-            $name = $request->input('name') . '.' . $ex;
-            $path = "/media/documents/{$category->name}/{$currentYear}-{$currentMonth}/";
-            // Introduce a delay of 5 seconds (adjust the delay time as needed)
-            sleep(5);
-            $documentToStore->storeAs($path, $name, 's3');
+        // Generate a unique filename
+        $name = $request->input('name') . '.' . $documentToStore->getClientOriginalExtension();
 
-            Document::create([
-                'name' => $request->input('name'),
-                'document_path' => $path.$name,
-                'document_category_id' => $request->input('document_category_id'),
-            ]);
+        // Define the storage path
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+        $path = "/media/documents/{$category->name}/{$currentYear}-{$currentMonth}/";
 
-            return response()->json([
-                'message' => 'تم اٍضافة المستند بنجاح',
-            ], 201);
+        // Store the document in S3 storage
+        $documentToStore->storeAs($path, $name, 's3');
 
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'حدث خطأ أثناء تحميل المستند.',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
+        // Create a new document record
+        $document = Document::create([
+            'name' => $request->input('name'),
+            'document_path' => $path . $name,
+            'document_category_id' => $request->input('document_category_id'),
+        ]);
+
+        return response()->json([
+            'message' => 'تم اٍضافة المستند بنجاح',
+            'document' => $document,
+        ], 201);
+    } catch (\Exception $e) {
+        // Log the error for debugging purposes
+        \Log::error('Error storing document: ' . $e->getMessage());
+
+        return response()->json([
+            'message' => 'حدث خطأ أثناء تخزين المستند.',
+        ], 500);
     }
+}
+
 
 
 
