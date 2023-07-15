@@ -124,7 +124,6 @@ public function update(UpdateDocumentRequest $request, Document $document)
         ], 200);
     } catch (\Exception $e) {
         // Log the error for debugging purposes
-
         return response()->json([
             'message' => 'حدث خطأ أثناء تحديث المستند.',
         ], 500);

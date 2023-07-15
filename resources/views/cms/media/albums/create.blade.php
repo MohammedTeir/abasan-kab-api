@@ -30,7 +30,7 @@
 
                     <div class="mb-3">
                         <label for="image" class="col-form-label">الصور:</label>
-                        <input type="file" class="form-control" id="album_images[]" name="album_images[]" multiple  accept="image/*" style="background-color: #F3F4F6; color: #000000;">
+                        <input type="file" class="form-control" id="album_images" name="album_images[]" multiple  accept="image/*" style="background-color: #F3F4F6; color: #000000;">
                     </div>
 
 
