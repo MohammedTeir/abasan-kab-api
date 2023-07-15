@@ -61,8 +61,6 @@ Route::get('testapi', function(){
 
 Route::prefix('municipality-settings')->group(function () {
     Route::get('/', [MunicipalitySettingApiController::class, 'show']);
-    Route::post('/', [MunicipalitySettingApiController::class, 'store']);
-    Route::post('/cover-images', [MunicipalitySettingApiController::class, 'addCoverImages']);
     Route::get('/cover-images', [MunicipalitySettingApiController::class, 'getCoverImages']);
 });
 
@@ -79,19 +77,16 @@ Route::prefix('municipality-settings')->group(function () {
 
     Route::group(['prefix' => 'ads'], function () {
         Route::get('/', [AdApiController::class, 'index']);
-        Route::post('/', [AdApiController::class, 'store']);
         Route::get('/{ad}', [AdApiController::class, 'show']);
         });
 
     Route::prefix('vacancies')->group(function () {
             Route::get('/', [VacancyApiController::class, 'index']);
             Route::get('/{vacancy}', [VacancyApiController::class, 'show']);
-            Route::post('/', [VacancyApiController::class, 'store']);
 
         });
 
     Route::group(['prefix' => 'mayor-speech'], function () {
-        Route::post('/', [MayorSpeechApiController::class, 'store']);
         Route::get('/', [MayorSpeechApiController::class, 'show']);
 });
 
@@ -101,15 +96,11 @@ Route::get('/council-members', [CouncilMemberApiController::class, 'index'])->na
  // Routes for Municipality Projects Categories
  Route::prefix('project-categories')->group(function () {
     Route::get('/', [MunicipalityProjectsCategoryApiController::class, 'index']);
-    Route::post('/', [MunicipalityProjectsCategoryApiController::class, 'store']);
-    Route::put('/{category}', [MunicipalityProjectsCategoryApiController::class, 'update']);
-    Route::delete('/{category}', [MunicipalityProjectsCategoryApiController::class, 'destroy']);
 });
 
 // Routes for Municipality Projects
 Route::prefix('projects')->group(function () {
     Route::get('/', [MunicipalityProjectsApiController::class, 'index']);
-    Route::post('/', [MunicipalityProjectsApiController::class, 'store']);
     Route::get('/completed-projects', [MunicipalityProjectsApiController::class, 'getCompletedProjects']);
     Route::get('/in-progress-projects', [MunicipalityProjectsApiController::class, 'getInProgressProjects']);
     Route::get('/future-projects', [MunicipalityProjectsApiController::class, 'getFutureProjects']);
@@ -126,38 +117,29 @@ Route::post('/verify-activation-code', [ActivationApiController::class, 'verifyA
 
 Route::prefix('service-categories')->group(function () {
     Route::get('/', [ServiceCategoryApiController::class, 'index']);
-    Route::post('/', [ServiceCategoryApiController::class, 'store']);
-    Route::put('/{category}', [ServiceCategoryApiController::class, 'update']);
-    Route::delete('/{category}', [ServiceCategoryApiController::class, 'destroy']);
 });
 
 // Service Routes
 Route::prefix('services')->group(function () {
     Route::get('/', [ServiceApiController::class, 'index']);
-    Route::post('/', [ServiceApiController::class, 'store']);
     Route::get('/category/{category}', [ServiceApiController::class, 'getServicesByCategory']);
 });
 
 
 Route::group(['prefix' => 'departments'], function () {
     Route::get('/', [DepartmentApiController::class, 'index']);
-    Route::post('/', [DepartmentApiController::class, 'store']);
-    Route::put('/{department}', [DepartmentApiController::class, 'update']);
-    Route::delete('/{department}', [DepartmentApiController::class, 'destroy']);
+
 });
 
 Route::prefix('document-categories')->group(function () {
     Route::get('/', [DocumentCategoryApiController::class, 'index']);
-    Route::post('/', [DocumentCategoryApiController::class, 'store']);
-    Route::put('/{id}', [DocumentCategoryApiController::class, 'update']);
-    Route::delete('/{id}', [DocumentCategoryApiController::class, 'destroy']);
+
 });
 
 
 Route::prefix('documents')->group(function () {
     Route::get('/', [DocumentApiController::class, 'index']);
     Route::get('/getByCategory/{category}', [DocumentApiController::class, 'getByCategory']);
-    Route::post('/', [DocumentApiController::class, 'store']);
     Route::get('/publication-documents', [DocumentApiController::class, 'getPublicationDocuments']);
     Route::get('/regulations-and-laws-documents', [DocumentApiController::class, 'getRegulationsAndLawsDocuments']);
     Route::get('/urban-planning-documents', [DocumentApiController::class, 'getUrbanPlanningDocuments']);
@@ -168,12 +150,10 @@ Route::prefix('documents')->group(function () {
 
 
 Route::prefix('albums')->group(function () {
-    Route::post('/', [GalleryApiController::class, 'addAlbum']);
     Route::get('/', [GalleryApiController::class, 'getAllAlbums']);
     Route::get('/{album}', [GalleryApiController::class, 'getAlbum']);
 });
 
 Route::prefix('videos')->group(function () {
-    Route::post('/', [GalleryApiController::class, 'addVideo']);
     Route::get('/', [GalleryApiController::class, 'getAllVideos']);
 });

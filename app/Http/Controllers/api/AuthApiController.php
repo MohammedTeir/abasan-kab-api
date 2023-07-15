@@ -135,7 +135,7 @@ class AuthApiController extends Controller
         }
 
         try {
-            $response = Http::asForm()->post(env('APP_URL') . ":" . "3001" . '/oauth/token', [
+            $response = Http::asForm()->post(env('APP_URL')  . '/oauth/token', [
                 'grant_type' => 'password',
                 'client_id' => '2',
                 'client_secret' => env('USER_SECRET'),
