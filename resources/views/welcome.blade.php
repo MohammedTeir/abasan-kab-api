@@ -1,4 +1,4 @@
-@extends('layouts.main-layout')
+@extends('layouts.auth')
 
 @section('title',' لوحة التحكم بلدية عبسان الكبيرة')
 
