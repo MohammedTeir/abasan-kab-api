@@ -56,12 +56,12 @@ Route::middleware('guest:admin')->prefix('dashboard')->group(function () {
 Route::middleware('auth:admin')->prefix('dashboard')->group(function () {
 
     Route::view('/', 'index',[
-        'totalUsers' => User::count(),
-        'totalNews' => News::count(),
-        'totalProjects' => MunicipalityProject::count(),
-        'totalVacanicies' => Vacancy::count(),
-        'recentDocuments' => Document::latest()->take(5)->get(),
-        'latestProjects' => MunicipalityProject::latest()->take(5)->get(),
+        // 'totalUsers' => User::count(),
+        // 'totalNews' => News::count(),
+        // 'totalProjects' => MunicipalityProject::count(),
+        // 'totalVacanicies' => Vacancy::count(),
+        // 'recentDocuments' => Document::latest()->take(5)->get(),
+        // 'latestProjects' => MunicipalityProject::latest()->take(5)->get(),
 
     ])->name('dashboard.home');
     Route::get('/logout', [DashboardAuthController::class, 'logout'])->name('dashboard.logout');
