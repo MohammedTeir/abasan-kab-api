@@ -196,7 +196,7 @@ class InformationController extends Controller
             }
 
             $municipalityAbout->content = $request->input('content');
-
+            $municipalityAbout->save();
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $extension = $image->getClientOriginalExtension();
