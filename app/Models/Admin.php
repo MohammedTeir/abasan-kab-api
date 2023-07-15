@@ -46,8 +46,9 @@ class Admin extends Authenticatable
         return $this->morphOne(Image::class , 'imageable');
     }
 
-    public function role(){
-        return $this->hasOne(Role::class,'id');
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 
     public function getLastLoginAttribute()

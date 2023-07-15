@@ -97,7 +97,7 @@
                   <tr>
                     <td>{{$admin->name}}</td>
                     <td>{{$admin->email}}</td>
-                    <td>{{$admin->role->name}}</td>
+                    <td>{{optional($admin->role)->name}}</td>
                     <td>{{$admin->joined_date}}</td>
                     <td>{{$admin->last_login}}</td>
                     @if ($admin->status=="active")
