@@ -31,28 +31,29 @@ class DocumentController extends Controller
     {
         try {
             $category = DocumentCategory::findOrFail($request->input('document_category_id'));
-    
+
             // Upload and associate the image
             $documentToStore = $request->file('document');
             $currentYear = date('Y');
             $currentMonth = date('m');
-    
+
             $ex = $documentToStore->getClientOriginalExtension();
             $name = $request->input('name') . '.' . $ex;
             $path = "/media/documents/{$category->name}/{$currentYear}-{$currentMonth}/";
-    
+            // Introduce a delay of 5 seconds (adjust the delay time as needed)
+            sleep(5);
             $documentToStore->storeAs($path, $name, 's3');
-    
+
             Document::create([
                 'name' => $request->input('name'),
                 'document_path' => $path.$name,
                 'document_category_id' => $request->input('document_category_id'),
             ]);
-    
+
             return response()->json([
                 'message' => 'تم اٍضافة المستند بنجاح',
             ], 201);
-    
+
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'حدث خطأ أثناء تحميل المستند.',
@@ -60,7 +61,7 @@ class DocumentController extends Controller
             ], 500);
         }
     }
-    
+
 
 
 
