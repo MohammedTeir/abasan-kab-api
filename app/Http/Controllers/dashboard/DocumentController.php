@@ -65,8 +65,6 @@ public function store(AddDocumentRequest $request)
         ], 201);
     } catch (\Exception $e) {
         // Log the error for debugging purposes
-        \Log::error('Error storing document: ' . $e->getMessage());
-
         return response()->json([
             'message' => 'حدث خطأ أثناء تخزين المستند.',
         ], 500);
@@ -77,56 +75,62 @@ public function store(AddDocumentRequest $request)
 
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-        public function update(UpdateDocumentRequest $request,Document $document)
-        {
-
-
-
-            // Update the document details
-            if ($request->filled('name')) {
-                $document->name = $request->input('name');
-            }
-
-            if ($request->filled('document_category_id')) {
-                $category = DocumentCategory::findOrFail($request->input('document_category_id'));
-                $document->document_category_id = $request->input('document_category_id');
-            }
-
-            // Check if a new document file is uploaded
-            if ($request->hasFile('document')) {
-
-                $documentToStore = $request->file('document');
-                $currentYear = date('Y');
-                $currentMonth = date('m');
-
-                $ex = $documentToStore->getClientOriginalExtension();
-                $name = $document->name . '.' . $ex;
-                $path = "/media/documents/{$category->name}/{$currentYear}-{$currentMonth}/";
-
-                // Delete the previous document file if exists
-                Storage::disk('s3')->delete($document->document_path);
-
-                // Upload the new document file
-                $documentToStore->storeAs($path, $name, 's3');
-
-                // Update the document path
-                $document->document_path = $path . $name;
-            }
-
-            // Save the changes to the document
-            $document->save();
-
-            return response()->json([
-                'message' => 'تم تحديث المستند بنجاح',
-            ], 200);
+   /**
+ * Update the specified resource in storage.
+ *
+ * @param \Illuminate\Http\Request $request
+ * @param int $id
+ * @return \Illuminate\Http\JsonResponse
+ */
+public function update(UpdateDocumentRequest $request, Document $document)
+{
+    try {
+        // Update the document details
+        if ($request->filled('name')) {
+            $document->name = $request->input('name');
         }
+
+        if ($request->filled('document_category_id')) {
+            $category = DocumentCategory::findOrFail($request->input('document_category_id'));
+            $document->document_category_id = $request->input('document_category_id');
+        }
+
+        // Check if a new document file is uploaded
+        if ($request->hasFile('document')) {
+            $documentToStore = $request->file('document');
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+
+            $ex = $documentToStore->getClientOriginalExtension();
+            $name = $document->name . '.' . $ex;
+            $path = "/media/documents/{$category->name}/{$currentYear}-{$currentMonth}/";
+
+            // Delete the previous document file if it exists
+            Storage::disk('s3')->delete($document->document_path);
+
+            // Upload the new document file
+            $documentToStore->storeAs($path, $name, 's3');
+
+            // Update the document path
+            $document->document_path = $path . $name;
+        }
+
+        // Save the changes to the document
+        $document->save();
+
+        return response()->json([
+            'message' => 'تم تحديث المستند بنجاح',
+            'document' => $document,
+        ], 200);
+    } catch (\Exception $e) {
+        // Log the error for debugging purposes
+
+        return response()->json([
+            'message' => 'حدث خطأ أثناء تحديث المستند.',
+        ], 500);
+    }
+}
+
 
     /**
      * Remove the specified resource from storage.
