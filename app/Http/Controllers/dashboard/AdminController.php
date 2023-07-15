@@ -68,7 +68,7 @@ class AdminController extends Controller
 
                 $ex = $avatar->getClientOriginalExtension();
                 $name = 'avatar' . time() * rand(1, 10000000) . '.' . $ex;
-                $path = "/development/media/avatars/";
+                $path = "/media/avatars/";
 
                 $image = new Image();
                 $image->url = $path . $name;

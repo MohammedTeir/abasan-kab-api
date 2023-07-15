@@ -71,7 +71,7 @@ class AlbumController extends Controller
             foreach ($albumImages as $albumImage) {
                 $ex = $albumImage->getClientOriginalExtension();
                 $name = 'image' . time() * rand(1, 10000000) . '.' . $ex;
-                $path = "/development/media/albums/{$currentYear}-{$currentMonth}/{$request->input('title')}/";
+                $path = "/media/albums/{$currentYear}-{$currentMonth}/{$request->input('title')}/";
 
                 $media = new Media();
                 $media->url = $path.$name;
@@ -121,7 +121,7 @@ class AlbumController extends Controller
             foreach ($albumImages as $albumImage) {
                 $ex = $albumImage->getClientOriginalExtension();
                 $name = 'image' . time() * rand(1, 10000000) . '.' . $ex;
-                $path = "/development/media/albums/{$currentYear}-{$currentMonth}/{$request->input('title')}/";
+                $path = "/media/albums/{$currentYear}-{$currentMonth}/{$request->input('title')}/";
 
                 $media = new Media();
                 $media->url = $path.$name;

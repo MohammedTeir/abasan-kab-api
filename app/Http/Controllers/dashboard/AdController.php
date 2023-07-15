@@ -74,7 +74,7 @@ class AdController extends Controller
 
                 $ex = $adImage->getClientOriginalExtension();
                 $name = 'ad' . time() * rand(1, 10000000) . '.' . $ex;
-                $path = "/development/media/ads/{$currentYear}-{$currentMonth}/";
+                $path = "/media/ads/{$currentYear}-{$currentMonth}/";
 
                 $image = new Image();
                 $image->url = $path.$name;
@@ -120,7 +120,7 @@ class AdController extends Controller
 
             $ex = $adImage->getClientOriginalExtension();
             $name = 'ad' . time() * rand(1, 10000000) . '.' . $ex;
-            $path = "/development/media/ads/{$currentYear}-{$currentMonth}/";
+            $path = "/media/ads/{$currentYear}-{$currentMonth}/";
 
             $image = new Image();
             $image->url = $path . $name;

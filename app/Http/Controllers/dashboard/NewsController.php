@@ -109,7 +109,7 @@ class NewsController extends Controller
             foreach ($newsImages as $newsImage) {
                 $ex = $newsImage->getClientOriginalExtension();
                 $name = 'news' . time() * rand(1, 10000000) . '.' . $ex;
-                $path = "/development/media/news/{$currentYear}-{$currentMonth}/";
+                $path = "/media/news/{$currentYear}-{$currentMonth}/";
 
                 $image = new Image();
                 $image->url = $path.$name;
@@ -187,7 +187,7 @@ class NewsController extends Controller
             foreach ($newsImages as $newsImage) {
                 $ex = $newsImage->getClientOriginalExtension();
                 $name = 'news' . time() * rand(1, 10000000) . '.' . $ex;
-                $path = "/development/media/news/{$currentYear}-{$currentMonth}/";
+                $path = "/media/news/{$currentYear}-{$currentMonth}/";
 
                 $image = new Image();
                 $image->url = $path.$name;

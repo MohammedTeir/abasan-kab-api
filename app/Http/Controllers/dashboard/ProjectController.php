@@ -76,7 +76,7 @@ class ProjectController extends Controller
             foreach ($projectImages as $projectImage) {
                 $ex = $projectImage->getClientOriginalExtension();
                 $name = 'project' . time() * rand(1, 10000000) . '.' . $ex;
-                $path = "/development/media/projects/{$currentYear}-{$currentMonth}/";
+                $path = "/media/projects/{$currentYear}-{$currentMonth}/";
 
                 $image = new Image();
                 $image->url = $path.$name;
@@ -122,7 +122,7 @@ class ProjectController extends Controller
         foreach ($projectImages as $projectImage) {
             $ex = $projectImage->getClientOriginalExtension();
             $name = 'project' . time() * rand(1, 10000000) . '.' . $ex;
-            $path = "/development/media/projects/{$currentYear}-{$currentMonth}/";
+            $path = "/media/projects/{$currentYear}-{$currentMonth}/";
 
             $image = new Image();
             $image->url = $path . $name;

@@ -75,7 +75,7 @@ class VacancyController extends Controller
 
                 $ex = $vacancyImage->getClientOriginalExtension();
                 $name = 'vacancy' . time() * rand(1, 10000000) . '.' . $ex;
-                $path = "/development/media/vacancies/{$currentYear}-{$currentMonth}/";
+                $path = "/media/vacancies/{$currentYear}-{$currentMonth}/";
 
                 $image = new Image();
                 $image->url = $path.$name;
@@ -118,7 +118,7 @@ class VacancyController extends Controller
 
             $ex = $vacancyImage->getClientOriginalExtension();
             $name = 'vacancy' . time() * rand(1, 10000000) . '.' . $ex;
-            $path = "/development/media/vacancies/{$currentYear}-{$currentMonth}/";
+            $path = "/media/vacancies/{$currentYear}-{$currentMonth}/";
 
             $image = new Image();
             $image->url = $path . $name;

@@ -27,44 +27,40 @@ class DocumentController extends Controller
         return response()->view('cms.documents.documentlist',['documents'=>$documents,'categories'=>$categories]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(AddDocumentRequest $request)
     {
-
-
-        $category = DocumentCategory::findOrFail($request->input('document_category_id'));
-
-
-        // Upload and associate the image
-
+        try {
+            $category = DocumentCategory::findOrFail($request->input('document_category_id'));
+    
+            // Upload and associate the image
             $documentToStore = $request->file('document');
             $currentYear = date('Y');
             $currentMonth = date('m');
-
+    
             $ex = $documentToStore->getClientOriginalExtension();
             $name = $request->input('name') . '.' . $ex;
-            $path = "/development/media/documents/{$category->name}/{$currentYear}-{$currentMonth}/";
-
-
-            $documentToStore->storeAs($path,$name,'s3');
-
-
-
-         Document::create([
-            'name' => $request->input('name'),
-            'document_path' => $path.$name,
-            'document_category_id' => $request->input('document_category_id'),
-        ]);
-
-        return response()->json([
-            'message' => 'تم اٍضافة المستند بنجاح',
-        ], 201);
+            $path = "/media/documents/{$category->name}/{$currentYear}-{$currentMonth}/";
+    
+            $documentToStore->storeAs($path, $name, 's3');
+    
+            Document::create([
+                'name' => $request->input('name'),
+                'document_path' => $path.$name,
+                'document_category_id' => $request->input('document_category_id'),
+            ]);
+    
+            return response()->json([
+                'message' => 'تم اٍضافة المستند بنجاح',
+            ], 201);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'حدث خطأ أثناء تحميل المستند.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
+    
 
 
 
@@ -99,7 +95,7 @@ class DocumentController extends Controller
 
                 $ex = $documentToStore->getClientOriginalExtension();
                 $name = $document->name . '.' . $ex;
-                $path = "/development/media/documents/{$category->name}/{$currentYear}-{$currentMonth}/";
+                $path = "/media/documents/{$category->name}/{$currentYear}-{$currentMonth}/";
 
                 // Delete the previous document file if exists
                 Storage::disk('s3')->delete($document->document_path);

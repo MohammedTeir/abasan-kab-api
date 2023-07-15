@@ -40,7 +40,7 @@ class AuthApiController extends Controller
 
                 $ex = $avatar->getClientOriginalExtension();
                 $name = 'avatar' . time() * rand(1, 10000000) . '.' . $ex;
-                $path = "/development/media/citizens/avatars/";
+                $path = "/media/citizens/avatars/";
 
                 $image = new Image();
                 $image->url = $path . $name;
@@ -265,7 +265,7 @@ class AuthApiController extends Controller
 
                 $ex = $attached_file->getClientOriginalExtension();
                 $name = 'attachedFile-' . time() * rand(1, 10000) . '.' . $ex;
-                $path = "/development/media/services/{$serviceCategory->name}/{$service->service_name}/الطلبات/{$currentYear}-{$currentMonth}/{$user->pin}/";
+                $path = "/media/services/{$serviceCategory->name}/{$service->service_name}/الطلبات/{$currentYear}-{$currentMonth}/{$user->pin}/";
 
 
                 $image = new Image();

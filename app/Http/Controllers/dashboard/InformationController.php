@@ -57,7 +57,7 @@ class InformationController extends Controller
             $mayorImage = $request->file('image');
             $extension = $mayorImage->getClientOriginalExtension();
             $name = 'mayor.' . $extension;
-            $path = "/development/media/municipality-informations/";
+            $path = "/media/municipality-informations/";
 
             $image = new Image();
             $image->url = $path . $name;
@@ -115,7 +115,7 @@ class InformationController extends Controller
                 foreach ($coverImages as $coverImage) {
                     $ex = $coverImage->getClientOriginalExtension();
                     $name = 'cover-image' . time() * rand(1, 10000000) . '.' . $ex;
-                    $path = "/development/media/municipality-informations/";
+                    $path = "/media/municipality-informations/";
 
                     $image = new Image();
                     $image->url = $path . $name;
@@ -165,7 +165,7 @@ class InformationController extends Controller
 
                     $ex = $coverImage->getClientOriginalExtension();
                     $name = 'cover-image' . time() * rand(1, 10000000) . '.' . $ex;
-                    $path = "/development/media/municipality-informations/";
+                    $path = "/media/municipality-informations/";
 
                     $image = new Image();
                     $image->url = $path. $name;
@@ -201,7 +201,7 @@ class InformationController extends Controller
                 $image = $request->file('image');
                 $extension = $image->getClientOriginalExtension();
                 $name = 'municipality-about-image.' . $extension;
-                $path = "/development/media/municipality-informations/";
+                $path = "/media/municipality-informations/";
 
                 // Remove existing image if it exists
                 if ($municipalityAbout->image) {

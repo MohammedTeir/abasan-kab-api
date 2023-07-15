@@ -42,7 +42,7 @@ class CouncilMemberController extends Controller
             $currentMonth = date('m');
             $ex = $cvFile->getClientOriginalExtension();
             $name = 'cv' . time() * rand(1, 10000000) . '.' . $ex;
-            $path = "/development/media/council-members/{$currentYear}-{$currentMonth}/{$request->input('name')}/";
+            $path = "/media/council-members/{$currentYear}-{$currentMonth}/{$request->input('name')}/";
             $member->cv_path = $path . $name;
             $cvFile->storeAs($path, $name, 's3');
         }
@@ -54,7 +54,7 @@ class CouncilMemberController extends Controller
             $currentMonth = date('m');
             $ex = $imageFile->getClientOriginalExtension();
             $name = 'avatar' . time() * rand(1, 10000000) . '.' . $ex;
-            $path = "/development/media/council-members/{$currentYear}-{$currentMonth}/{$request->input('name')}/";
+            $path = "/media/council-members/{$currentYear}-{$currentMonth}/{$request->input('name')}/";
             $image = new Image();
             $image->url = $path . $name;
             $member->image()->save($image);
@@ -95,7 +95,7 @@ class CouncilMemberController extends Controller
             $currentMonth = date('m');
             $ex = $cvFile->getClientOriginalExtension();
             $name = 'cv' . time() * rand(1, 10000000) . '.' . $ex;
-            $path = "/development/media/council-members/{$currentYear}-{$currentMonth}/{$member->name}/";
+            $path = "/media/council-members/{$currentYear}-{$currentMonth}/{$member->name}/";
 
             $member->cv_path = $path.$name;
 
@@ -117,7 +117,7 @@ class CouncilMemberController extends Controller
             $currentMonth = date('m');
             $ex = $imageFile->getClientOriginalExtension();
             $name = 'avatar' . time() * rand(1, 10000000) . '.' . $ex;
-            $path = "/development/media/council-members/{$currentYear}-{$currentMonth}/{$member->name}/";
+            $path = "/media/council-members/{$currentYear}-{$currentMonth}/{$member->name}/";
 
             $newImage = new Image();
             $newImage->url = $path.$name;
