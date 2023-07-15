@@ -196,6 +196,49 @@
 
 
 
+ <div class="content">
+    <div class="page-header">
+       <div class="page-title">
+          <h4>صور الرئيسية</h4>
+       </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+           <form>
+
+              <div class="row">
+                  <div class="col-lg-3 col-sm-6 col-12">
+
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="cover_images" name="cover_images[]" multiple accept="image/*" style="background-color: #F3F4F6; color: #000000;">
+                    </div>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            @if ($settings && $settings->imagesurl)
+                                @foreach ($settings->imagesurl as $image_url)
+                                    <div class="swiper-slide">
+                                        <img src="{{ $image_url }}" alt="News Image">
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="swiper-slide">
+                                    <p>لا يوجد صور للرئيسية.</p>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+
+                  <div class="col-lg-12">
+                     <a  class="btn btn-submit me-2" onclick="performAddCoverImages()">حفظ وتحديث</a>
+                  </div>
+               </div>
+
+           </form>
+        </div>
+     </div>
+ </div>
+
 
 @endsection
 
@@ -251,6 +294,26 @@ function  performAddSetting(){
 
 
 
+function  performAddCoverImages(){
+
+
+    let formData = new FormData();
+
+    // Get the selected images from the file input field
+    const coverImages = document.getElementById('cover_images').files;
+
+    // Perform any necessary validation or processing on the selected files
+
+    for (let i = 0; i < coverImages.length; i++) {
+        formData.append('cover_images[]', coverImages[i]);
+    }
+
+    postRequest('/dashboard/informations/cover-images',formData,'/dashboard/informations');
+
+}
+
+
+
 
 
 
@@ -281,5 +344,40 @@ function performAddMayorSpeech() {
 
 </script>
 
-
+<script>
+    var swiper = new Swiper('.swiper-container', {
+      loop: true,
+      speed: 400,
+      autoplay: {
+      delay: 1000,
+          },
+  
+      // Default parameters
+    slidesPerView: 1,
+    spaceBetween: 10,
+    // Responsive breakpoints
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 2,
+        spaceBetween: 20
+      },
+      // when window width is >= 480px
+      480: {
+        slidesPerView: 3,
+        spaceBetween: 30
+      },
+      // when window width is >= 640px
+      640: {
+        slidesPerView: 4,
+        spaceBetween: 40
+      }
+    },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  </script>
+  
 @endsection

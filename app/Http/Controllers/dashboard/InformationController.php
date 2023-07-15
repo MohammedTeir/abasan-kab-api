@@ -13,6 +13,7 @@ use App\Models\MunicipalityAbout;
 use App\Models\MunicipalitySetting;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class InformationController extends Controller
 {
@@ -149,6 +150,14 @@ class InformationController extends Controller
 
             // Handle cover image upload
         if ($request->hasFile('cover_images')) {
+
+            // Remove previous cover images from the database and S3 bucket
+            $previousImages = $municipalitySetting->images;
+            foreach ($previousImages as $previousImage) {
+                $imagePath = $previousImage->url;
+                $previousImage->delete();
+                Storage::disk('s3')->delete($imagePath);
+            }
 
             $coverImages = $request->file('cover_images');
 
