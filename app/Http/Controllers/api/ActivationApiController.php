@@ -32,7 +32,7 @@ class ActivationApiController extends Controller
 
         } else {
             // PIN does not exist
-            return response()->json(['message' => 'رمز الأمان غير صحيح. يرجى إدخال رمز أمان صحيح.'], 404);
+            return response()->json(['message' => 'رمز الأمان غير صحيح. يرجى إدخال رمز أمان صحيح.'], 400);
         }
     }
 
@@ -44,28 +44,21 @@ class ActivationApiController extends Controller
 
         if (!$user) {
             // User with the provided PIN does not exist
-            return response()->json(['message' => 'رمز الأمان غير صحيح. يرجى إدخال رمز أمان صحيح.'], 404);
+            return response()->json(['message' => 'رمز الأمان غير صحيح. يرجى إدخال رمز أمان صحيح.'], 400);
         }
 
         // Check if the user's phone number matches the provided phone number
         if ($user->phone === $phone) {
             return response()->json(['message' => 'رقم الهاتف ينتمي إلى المستخدم.'], 200);
         } else {
-            return response()->json(['message' => 'رقم الهاتف لا ينتمي إلى المستخدم.'], 403);
+            return response()->json(['message' => 'رقم الهاتف لا ينتمي إلى المستخدم.'], 400);
         }
     }
 
 
     public function sendActivationCode(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'pin' => 'required|string|exists:users,pin',
-            'phone' => 'required|string',
-        ]);
 
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()->first() ], 400);
-        }
 
         $pin = $request->input('pin');
         $phone = $request->input('phone');
@@ -75,7 +68,7 @@ class ActivationApiController extends Controller
 
         if (!$user) {
             // User with the provided PIN does not exist
-            return response()->json(['message' => 'رمز الأمان غير صحيح. يرجى إدخال رمز أمان صحيح.'], 404);
+            return response()->json(['message' => 'رمز الأمان غير صحيح. يرجى إدخال رمز أمان صحيح.'], 400);
         }
 
         // Check if the user's phone number is not equal to the input phone number
@@ -135,7 +128,7 @@ class ActivationApiController extends Controller
         if ($response->getStatusCode() == 200) {
             return response()->json(['message' => 'تم إرسال رمز التفعيل بنجاح.'], 200);
         } else {
-            return response()->json(['message' => 'فشل في إرسال رمز التفعيل.'], 500);
+            return response()->json(['message' => 'فشل في إرسال رمز التفعيل.'], 400);
         }
 
     }
@@ -160,7 +153,7 @@ class ActivationApiController extends Controller
 
         if (!$user) {
             // User with the provided PIN does not exist
-            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رقم هوية صحيح.'], 404);
+            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رقم هوية صحيح.'], 400);
         }
 
 
@@ -174,7 +167,7 @@ class ActivationApiController extends Controller
 
             return response()->json(['message' => 'تم التحقق من رمز التفعيل بنجاح. يمكنك تسجيل الدخول الآن باستخدام رقم الهوية الخاصة بك و الرمز المرسل .'], 200);
         } else {
-        return response()->json(['message' => 'رمز التفعيل غير صحيح.'], 403);
+        return response()->json(['message' => 'رمز التفعيل غير صحيح.'], 400);
     }
     }
 

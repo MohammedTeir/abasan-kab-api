@@ -65,7 +65,7 @@ class AuthApiController extends Controller
 
         if (!$user) {
             // User with the provided PIN does not exist
-            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رقم هوية صحيح'], 404);
+            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رقم هوية صحيح'], 400);
         }
 
         // Generate a random activation code
@@ -106,7 +106,7 @@ class AuthApiController extends Controller
         if ($response->getStatusCode() == 200) {
                     return response()->json(['message' => 'تم إرسال رمز التفعيل بنجاح'], 200);
                 } else {
-                    return response()->json(['message' => 'فشل في إرسال رمز التفعيل'], 500);
+                    return response()->json(['message' => 'فشل في إرسال رمز التفعيل'], 400);
                 }
 
 
@@ -119,9 +119,13 @@ class AuthApiController extends Controller
         $validator = Validator::make($request->all(), [
             'pin' => 'required|string|exists:users,pin',
             'password' => 'required|min:5',
+        ], [
+            'pin.required' => 'حقل رقم الهوية مطلوب.',
+            'pin.exists' => 'رقم الهوية غير موجود.',
+            'password.required' => 'حقل كلمة المرور مطلوب.',
+            'password.min' => 'يجب أن تحتوي كلمة المرور على الأقل 5 أحرف.',
         ]);
-
-
+    
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], Response::HTTP_BAD_REQUEST);
         }
@@ -175,7 +179,7 @@ class AuthApiController extends Controller
         } else {
             return response()->json([
                 'message' => 'المستخدم غير موجود أو تم الخروج بالفعل',
-            ], Response::HTTP_NOT_FOUND);
+            ], Response::HTTP_BAD_REQUEST);
         }
     } catch (\Exception $e) {
         return response()->json([
