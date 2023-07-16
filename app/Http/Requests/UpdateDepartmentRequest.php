@@ -35,11 +35,11 @@ class UpdateDepartmentRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'حقل الاسم مطلوب.',
-            'name.string' => 'حقل الاسم يجب أن يكون نصيًا.',
-            'name.max' => 'حقل الاسم لا يجب أن يتجاوز :max حرفًا.',
-            'description.string' => 'حقل الوصف يجب أن يكون نصيًا.',
+            'name.required' => ' الاسم مطلوب.',
+            'name.string' => ' الاسم يجب أن يكون نصيًا.',
+            'name.max' => ' الاسم لا يجب أن يتجاوز :max حرفًا.',
+            'description.string' => ' الوصف يجب أن يكون نصيًا.',
         ];
     }
-    
+
 }

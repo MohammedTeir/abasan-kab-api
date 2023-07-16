@@ -36,8 +36,8 @@ class AddAlbumRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'حقل العنوان مطلوب.',
-            'images.*.required' => 'حقل الصور مطلوب.',
+            'title.required' => ' العنوان مطلوب.',
+            'images.*.required' => ' الصور مطلوب.',
             'images.*.mimes' => 'صيغ الملفات المسموح بها هي jpeg، png، jpg، gif فقط.',
         ];
     }

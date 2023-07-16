@@ -41,14 +41,14 @@ class AddSettingRequest extends FormRequest
     public function messages()
     {
         return [
-            'telephone_number.required' => 'حقل رقم الهاتف مطلوب.',
-            'mobile_number.required' => 'حقل رقم الجوال مطلوب.',
-            'email.required' => 'حقل البريد الإلكتروني مطلوب.',
+            'telephone_number.required' => ' رقم الهاتف مطلوب.',
+            'mobile_number.required' => ' رقم الجوال مطلوب.',
+            'email.required' => ' البريد الإلكتروني مطلوب.',
             'email.email' => 'يجب أن يكون البريد الإلكتروني صالحًا.',
-            'address.required' => 'حقل العنوان مطلوب.',
-            'facebook.url' => 'يجب أن يكون حقل الفيسبوك رابطًا صالحًا.',
-            'instagram.url' => 'يجب أن يكون حقل الإنستجرام رابطًا صالحًا.',
-            'youtube.url' => 'يجب أن يكون حقل اليوتيوب رابطًا صالحًا.',
+            'address.required' => ' العنوان مطلوب.',
+            'facebook.url' => 'يجب أن يكون  الفيسبوك رابطًا صالحًا.',
+            'instagram.url' => 'يجب أن يكون  الإنستجرام رابطًا صالحًا.',
+            'youtube.url' => 'يجب أن يكون  اليوتيوب رابطًا صالحًا.',
             'cover_images.*.image' => 'يجب أن يكون الملف المحدد صورة.',
             'cover_images.*.mimes' => 'يجب أن يكون نوع الملف صورة بامتدادات jpeg، png، jpg، gif.',
             'cover_images.*.max' => 'يجب ألا يتجاوز حجم الملف 2048 كيلوبايت.',

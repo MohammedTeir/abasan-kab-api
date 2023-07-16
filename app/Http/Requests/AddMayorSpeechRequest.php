@@ -36,9 +36,9 @@ class AddMayorSpeechRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'حقل العنوان مطلوب.',
-            'content.required' => 'حقل المحتوى مطلوب.',
-            'image.required' => 'حقل الصورة مطلوب.',
+            'title.required' => ' العنوان مطلوب.',
+            'content.required' => ' المحتوى مطلوب.',
+            'image.required' => ' الصورة مطلوب.',
             'image.image' => 'يجب أن يكون الملف المحدد صورة.',
             'image.mimes' => 'يجب أن يكون نوع الملف صورة بامتدادات jpeg، png، jpg، gif.',
             'image.max' => 'يجب ألا يتجاوز حجم الملف 2048 كيلوبايت.',

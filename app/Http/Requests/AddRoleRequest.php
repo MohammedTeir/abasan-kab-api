@@ -30,11 +30,11 @@ class AddRoleRequest extends FormRequest
     public function messages()
     {
         return [
-            'role_name.required' => 'حقل اسم الدور مطلوب.',
-            'role_name.string' => 'حقل اسم الدور يجب أن يكون نصًا.',
-            'role_name.max' => 'حقل اسم الدور يجب ألا يتجاوز 255 حرفًا.',
-            'role_name.unique' => 'قيمة حقل اسم الدور مستخدمة بالفعل.',
-            'description.string' => 'حقل الوصف يجب أن يكون نصًا.',
+            'role_name.required' => ' اسم الدور مطلوب.',
+            'role_name.string' => ' اسم الدور يجب أن يكون نصًا.',
+            'role_name.max' => ' اسم الدور يجب ألا يتجاوز 255 حرفًا.',
+            'role_name.unique' => 'قيمة  اسم الدور مستخدمة بالفعل.',
+            'description.string' => ' الوصف يجب أن يكون نصًا.',
         ];
     }
 

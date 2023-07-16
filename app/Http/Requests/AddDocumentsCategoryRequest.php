@@ -32,11 +32,11 @@ class AddDocumentsCategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'حقل الاسم مطلوب.',
-            'name.string' => 'حقل الاسم يجب أن يكون نصًا.',
+            'name.required' => ' الاسم مطلوب.',
+            'name.string' => ' الاسم يجب أن يكون نصًا.',
             'name.unique' => 'قيمة الاسم موجودة بالفعل.',
         ];
     }
 
-    
+
 }

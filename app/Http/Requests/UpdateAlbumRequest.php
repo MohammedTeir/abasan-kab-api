@@ -36,10 +36,10 @@ class UpdateAlbumRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'حقل العنوان مطلوب.',
+            'title.required' => ' العنوان مطلوب.',
             'images.*.image' => 'يجب أن تكون الصورة صورة صحيحة.',
             'images.*.mimes' => 'صيغ الملفات المسموح بها هي jpeg، png، jpg، gif فقط.',
         ];
     }
-    
+
 }

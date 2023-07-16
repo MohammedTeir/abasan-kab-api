@@ -38,16 +38,16 @@ class UpdateServiceRequest extends FormRequest
     public function messages()
     {
         return [
-            'service_category_id.required' => 'حقل تصنيف الخدمة مطلوب.',
+            'service_category_id.required' => ' تصنيف الخدمة مطلوب.',
             'service_category_id.exists' => 'تصنيف الخدمة المحدد غير صالح.',
-            'service_name.required' => 'حقل اسم الخدمة مطلوب.',
+            'service_name.required' => ' اسم الخدمة مطلوب.',
             'service_name.string' => 'يجب أن يكون اسم الخدمة نصًا.',
             'service_name.max' => 'لا يجب أن يتجاوز اسم الخدمة :max حرفًا.',
-            'price.required' => 'حقل السعر مطلوب.',
+            'price.required' => ' السعر مطلوب.',
             'price.string' => 'يجب أن يكون السعر نصًا.',
-            'required_time.required' => 'حقل الوقت المطلوب مطلوب.',
+            'required_time.required' => ' الوقت المطلوب مطلوب.',
             'required_time.string' => 'يجب أن يكون الوقت المطلوب نصًا.',
-            'required_documents.required' => 'حقل الوثائق المطلوبة مطلوب.',
+            'required_documents.required' => ' الوثائق المطلوبة مطلوب.',
             'required_documents.string' => 'يجب أن تكون الوثائق المطلوبة نصًا.',
         ];
     }

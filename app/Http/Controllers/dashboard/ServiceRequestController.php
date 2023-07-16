@@ -134,8 +134,8 @@ class ServiceRequestController extends Controller
         $request->validate([
             'rejection_reason' => 'required|string',
         ], [
-            'rejection_reason.required' => 'حقل سبب الرفض مطلوب.',
-            'rejection_reason.string' => 'حقل سبب الرفض يجب أن يكون نصًا.',
+            'rejection_reason.required' => ' سبب الرفض مطلوب.',
+            'rejection_reason.string' => ' سبب الرفض يجب أن يكون نصًا.',
         ]);
 
         // Perform the necessary logic to reject the service request

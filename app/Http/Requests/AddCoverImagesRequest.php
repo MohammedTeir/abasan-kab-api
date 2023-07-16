@@ -34,7 +34,7 @@ class AddCoverImagesRequest extends FormRequest
     public function messages()
     {
         return [
-            'cover_images.*.required' => 'حقل الصورة مطلوب.',
+            'cover_images.*.required' => ' الصورة مطلوب.',
             'cover_images.*.image' => 'يجب أن يكون الملف المحدد صورة.',
             'cover_images.*.mimes' => 'يجب أن يكون نوع الملف صورة بامتدادات jpeg، png، jpg، gif.',
             'cover_images.*.max' => 'يجب ألا يتجاوز حجم الملف 2048 كيلوبايت.',

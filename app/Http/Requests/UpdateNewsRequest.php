@@ -39,14 +39,14 @@ class UpdateNewsRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.string' => 'حقل العنوان يجب أن يكون نصًا.',
-            'content.string' => 'حقل المحتوى يجب أن يكون نصًا.',
-            'is_featured.boolean' => 'حقل التمييز يجب أن يكون قيمة منطقية.',
-            'is_published.boolean' => 'حقل النشر يجب أن يكون قيمة منطقية.',
+            'title.string' => ' العنوان يجب أن يكون نصًا.',
+            'content.string' => ' المحتوى يجب أن يكون نصًا.',
+            'is_featured.boolean' => ' التمييز يجب أن يكون قيمة منطقية.',
+            'is_published.boolean' => ' النشر يجب أن يكون قيمة منطقية.',
             'news_images.*.image' => 'يجب أن يكون الملفات المحددة صورًا.',
             'news_images.*.mimes' => 'الصيغ المسموح بها للصور هي: jpeg، png، jpg، gif.',
             'news_images.*.max' => 'يجب أن يكون حجم الصورة أقل من 2048 كيلوبايت.',
-            'tags.string' => ' حقل الوسوم يجب أن يكون نصًا. مع وضع , بين كل وسم',
+            'tags.string' => '  الوسوم يجب أن يكون نصًا. مع وضع , بين كل وسم',
         ];
     }
 

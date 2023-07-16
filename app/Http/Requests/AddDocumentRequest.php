@@ -34,12 +34,12 @@ class AddDocumentRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'حقل الاسم مطلوب.',
-            'name.string' => 'يجب أن يكون حقل الاسم نصًا.',
-            'document.required' => 'حقل المستند مطلوب.',
-            'document.file' => 'يجب أن يكون حقل المستند ملفًا.',
+            'name.required' => ' الاسم مطلوب.',
+            'name.string' => 'يجب أن يكون  الاسم نصًا.',
+            'document.required' => ' المستند مطلوب.',
+            'document.file' => 'يجب أن يكون  المستند ملفًا.',
             'document.mimes' => 'يجب أن يكون نوع المستند صالحًا. يجب أن يكون الامتدادات المسموح بها: pdf, doc, docx.',
-            'document_category_id.required' => 'حقل فئة المستند مطلوب.',
+            'document_category_id.required' => ' فئة المستند مطلوب.',
             'document_category_id.exists' => 'قيمة فئة المستند غير صالحة.',
         ];
     }

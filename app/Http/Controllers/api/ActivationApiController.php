@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,7 +33,7 @@ class ActivationApiController extends Controller
 
         } else {
             // PIN does not exist
-            return response()->json(['message' => 'رمز الأمان غير صحيح. يرجى إدخال رمز أمان صحيح.'], 400);
+            return response()->json(['message' => ' رقم الهوية غير صحيح  يرجى التأكد من رقم الهوية .'], 400);
         }
     }
 
@@ -59,6 +60,18 @@ class ActivationApiController extends Controller
     public function sendActivationCode(Request $request)
     {
 
+        $validator = Validator::make($request->all(), [
+            'pin' => 'required|string|exists:users,pin',
+            'phone' => 'required|string',
+        ], [
+            'pin.required' => ' رقم الهوية مطلوب.',
+            'pin.exists' => 'رقم الهوية غير صحيح. يرجى إدخال رقم هوية صحيح.',
+            'phone.required' => ' رقم الهاتف مطلوب.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()->first()], Response::HTTP_BAD_REQUEST);
+        }
 
         $pin = $request->input('pin');
         $phone = $request->input('phone');
@@ -68,7 +81,7 @@ class ActivationApiController extends Controller
 
         if (!$user) {
             // User with the provided PIN does not exist
-            return response()->json(['message' => 'رمز الأمان غير صحيح. يرجى إدخال رمز أمان صحيح.'], 400);
+            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رمز هوية صحيح.'], 400);
         }
 
         // Check if the user's phone number is not equal to the input phone number
@@ -138,11 +151,16 @@ class ActivationApiController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'pin' => 'required|string|exists:users,pin',
-            'activation_code' => 'required|string',
+            'activation_code' => 'required|string|min:6',
+        ], [
+            'pin.required' => ' رقم الهوية مطلوب.',
+            'pin.exists' => 'رقم الهوية غير صحيح. يرجى إدخال رقم هوية صحيح.',
+            'activation_code.required' => ' رمز التفعيل مطلوب.',
+            'activation_code.min' => 'يجب أن يحتوي رمز التفعيل على الأقل 6 أحرف.',
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()->first()], 400);
+            return response()->json(['message' => $validator->errors()->first()], Response::HTTP_BAD_REQUEST);
         }
 
         $pin = $request->input('pin');

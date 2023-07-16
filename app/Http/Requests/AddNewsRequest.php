@@ -30,7 +30,7 @@ class AddNewsRequest extends FormRequest
             'tags' => 'nullable|string',
         ];
     }
-    
+
     /**
      * Get the validation messages for the request.
      */
@@ -38,14 +38,14 @@ class AddNewsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'حقل العنوان مطلوب.',
-            'content.required' => 'حقل المحتوى مطلوب.',
-            'is_featured.boolean' => 'يجب أن يكون حقل الإعلان المميز قيمة منطقية (boolean).',
-            'is_published.boolean' => 'يجب أن يكون حقل النشر قيمة منطقية (boolean).',
+            'title.required' => ' العنوان مطلوب.',
+            'content.required' => ' المحتوى مطلوب.',
+            'is_featured.boolean' => 'يجب أن يكون  الإعلان المميز قيمة منطقية (boolean).',
+            'is_published.boolean' => 'يجب أن يكون  النشر قيمة منطقية (boolean).',
             'news_images.*.image' => 'يجب أن يكون الملف المرسل للصورة صورة.',
             'news_images.*.mimes' => 'يجب أن يكون الملف المرسل للصورة من نوع: jpeg, png, jpg, gif.',
             'news_images.*.max' => 'يجب ألا يتجاوز حجم الملف المرسل للصورة 2048 كيلوبايت.',
-            'tags.string' => 'يجب أن يكون حقل الوسوم نصًا.',
+            'tags.string' => 'يجب أن يكون  الوسوم نصًا.',
         ];
     }
 }

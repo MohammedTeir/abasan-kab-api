@@ -37,8 +37,8 @@ class UpdateProjectRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.string' => 'حقل العنوان يجب أن يكون نصًا.',
-            'content.string' => 'حقل المحتوى يجب أن يكون نصًا.',
+            'title.string' => ' العنوان يجب أن يكون نصًا.',
+            'content.string' => ' المحتوى يجب أن يكون نصًا.',
             'category_id.exists' => 'تم اختيار رقم الفئة غير صالح.',
             'project_images.*.image' => 'يجب أن يكون ملف الصورة من نوع صورة.',
             'project_images.*.mimes' => 'يجب أن يكون ملف الصورة من نوع: jpeg, png, jpg, gif.',

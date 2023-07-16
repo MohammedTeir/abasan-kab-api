@@ -34,10 +34,10 @@ class UpdateProfileImageRequest extends FormRequest
     public function messages()
     {
         return [
-            'avatar.required' => 'حقل الصورة مطلوب.',
-            'avatar.image' => 'يجب أن يكون حقل الصورة صورة.',
+            'avatar.required' => ' الصورة مطلوب.',
+            'avatar.image' => 'يجب أن يكون  الصورة صورة.',
             'avatar.max' => 'يجب ألا يتجاوز حجم الصورة 2048 كيلوبايت.',
-            'avatar.mimetypes' => 'يجب أن يكون حقل الصورة من نوع صورة.',
+            'avatar.mimetypes' => 'يجب أن يكون  الصورة من نوع صورة.',
         ];
     }
 }

@@ -37,9 +37,9 @@ class AddProjectRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'حقل العنوان مطلوب.',
-            'content.required' => 'حقل المحتوى مطلوب.',
-            'category_id.required' => 'حقل رقم الفئة مطلوب.',
+            'title.required' => ' العنوان مطلوب.',
+            'content.required' => ' المحتوى مطلوب.',
+            'category_id.required' => ' رقم الفئة مطلوب.',
             'category_id.exists' => 'تم اختيار رقم فئة غير صالح.',
             'project_images.*.image' => 'يجب أن يكون ملف الصورة من نوع صورة.',
             'project_images.*.mimes' => 'يجب أن يكون ملف الصورة من نوع: jpeg, png, jpg, gif.',

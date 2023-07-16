@@ -4,10 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ad;
-use App\Models\Image;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdApiController extends Controller
@@ -34,7 +31,7 @@ class AdApiController extends Controller
     }
 
 
- 
+
 
     /**
      * Display the specified ad.

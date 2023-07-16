@@ -36,8 +36,8 @@ class AddViedoRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'حقل العنوان مطلوب.',
-            'embed_code.required' => 'حقل رمز الفيديو مطلوب.',
+            'title.required' => ' العنوان مطلوب.',
+            'embed_code.required' => ' رمز الفيديو مطلوب.',
         ];
     }
 }

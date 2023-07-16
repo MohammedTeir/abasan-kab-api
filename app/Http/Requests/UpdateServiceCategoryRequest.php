@@ -35,9 +35,9 @@ class UpdateServiceCategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.string' => 'حقل الاسم يجب أن يكون نصياً.',
-            'name.max' => 'حقل الاسم يجب ألا يتجاوز :max حرفًا.',
-            'description.string' => 'حقل الوصف يجب أن يكون نصياً.',
+            'name.string' => ' الاسم يجب أن يكون نصياً.',
+            'name.max' => ' الاسم يجب ألا يتجاوز :max حرفًا.',
+            'description.string' => ' الوصف يجب أن يكون نصياً.',
         ];
     }
 }

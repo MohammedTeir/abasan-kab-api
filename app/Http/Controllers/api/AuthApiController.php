@@ -120,12 +120,12 @@ class AuthApiController extends Controller
             'pin' => 'required|string|exists:users,pin',
             'password' => 'required|min:5',
         ], [
-            'pin.required' => 'حقل رقم الهوية مطلوب.',
+            'pin.required' => ' رقم الهوية مطلوب.',
             'pin.exists' => 'رقم الهوية غير موجود.',
-            'password.required' => 'حقل كلمة المرور مطلوب.',
+            'password.required' => ' كلمة المرور مطلوب.',
             'password.min' => 'يجب أن تحتوي كلمة المرور على الأقل 5 أحرف.',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], Response::HTTP_BAD_REQUEST);
         }
@@ -232,7 +232,12 @@ class AuthApiController extends Controller
         $user = $request->user('api');
 
         $validator = Validator::make($request->all(), [
-            'attached_files.*'=>'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'attached_files.*' => 'required|file|mimes:jpeg,png,jpg,gif,pdf|max:2048',
+        ], [
+            'attached_files.*.required' => ' المرفقات مطلوب. يرجى تحديد ملفات للمرفقات.',
+            'attached_files.*.file' => 'يجب أن تكون المرفقات ملفات.',
+            'attached_files.*.mimes' => 'صيغة الملفات المسموح بها هي: jpeg, png, jpg, gif, pdf فقط.',
+            'attached_files.*.max' => 'يجب أن يكون حجم الملفات أقل من 2 ميجابايت.',
         ]);
 
         if ($validator->fails()) {
@@ -284,7 +289,7 @@ class AuthApiController extends Controller
         return response()->json([
             'message' => 'تم إنشاء طلب الخدمة بنجاح',
             'data' => $serviceRequest,
-        ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 
     public function deleteRequest(ServiceRequest $serviceRequest, Request $request)
@@ -295,7 +300,7 @@ class AuthApiController extends Controller
         if ($serviceRequest->beneficiary_pin !== $user->pin) {
             return response()->json([
                 'message' => 'غير مسموح لك بحذف هذا الطلب',
-            ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         foreach ($serviceRequest->images as $image) {
@@ -360,6 +365,14 @@ class AuthApiController extends Controller
             'department_id' => 'required|exists:departments,id',
             'complaint_title' => 'required|string|max:255',
             'complaint_content' => 'required|string',
+        ], [
+            'department_id.required' => 'يرجى اٍختيار الدائرة المراد ارسال لها الشكوى',
+            'department_id.exists' => 'الدائرة التي تم اختيارها غير موجود , يرجى اختيار مرة اخرى',
+            'complaint_title.required' => ' عنوان الشكوى مطلوب. يرجى إدخال عنوان للشكوى.',
+            'complaint_title.string' => ' عنوان الشكوى يجب أن يكون نصًا.',
+            'complaint_title.max' => ' عنوان الشكوى يجب أن لا يتجاوز 255 حرفًا.',
+            'complaint_content.required' => ' محتوى الشكوى مطلوب. يرجى إدخال محتوى للشكوى.',
+            'complaint_content.string' => ' محتوى الشكوى يجب أن يكون نصًا.',
         ]);
 
         if ($validator->fails()) {

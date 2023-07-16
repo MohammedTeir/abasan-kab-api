@@ -38,17 +38,17 @@ class AddServiceRequest extends FormRequest
     public function messages()
     {
         return [
-            'service_category_id.required' => 'حقل معرف فئة الخدمة مطلوب.',
+            'service_category_id.required' => ' معرف فئة الخدمة مطلوب.',
             'service_category_id.exists' => 'معرف فئة الخدمة غير صالح.',
-            'service_name.required' => 'حقل اسم الخدمة مطلوب.',
-            'service_name.string' => 'حقل اسم الخدمة يجب أن يكون نصًا.',
-            'service_name.max' => 'حقل اسم الخدمة يجب ألا يتجاوز 255 حرفًا.',
+            'service_name.required' => ' اسم الخدمة مطلوب.',
+            'service_name.string' => ' اسم الخدمة يجب أن يكون نصًا.',
+            'service_name.max' => ' اسم الخدمة يجب ألا يتجاوز 255 حرفًا.',
             'service_name.unique' => 'اسم الخدمة مستخدم بالفعل.',
-            'price.required' => 'حقل السعر مطلوب.',
-            'price.string' => 'حقل السعر يجب أن يكون نصًا.',
-            'required_time.required' => 'حقل الوقت المطلوب مطلوب.',
-            'required_time.string' => 'حقل الوقت المطلوب يجب أن يكون نصًا.',
-            'required_documents.string' => 'حقل الوثائق المطلوبة يجب أن يكون نصًا.',
+            'price.required' => ' السعر مطلوب.',
+            'price.string' => ' السعر يجب أن يكون نصًا.',
+            'required_time.required' => ' الوقت المطلوب مطلوب.',
+            'required_time.string' => ' الوقت المطلوب يجب أن يكون نصًا.',
+            'required_documents.string' => ' الوثائق المطلوبة يجب أن يكون نصًا.',
         ];
     }
 }
