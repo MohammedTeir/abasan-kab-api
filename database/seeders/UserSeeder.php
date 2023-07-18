@@ -18,7 +18,18 @@ class UserSeeder extends Seeder
     {
         // Create multiple users with sample data
         $users = [
-            
+            [
+                'pin' => '405857004',
+                'name' => 'محمد فتح أبو طير',
+                'phone' => '0592524815',
+                'status' => 'in-active',
+            ],
+            [
+                'pin' => '405856998',
+                'name' => 'محمود فتح أبو طير',
+                'phone' => '0592721349',
+                'status' => 'in-active',
+            ],
             [
                 'pin' => '406976928',
                 'name' => 'محمود سمور',
