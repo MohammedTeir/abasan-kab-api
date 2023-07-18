@@ -30,6 +30,12 @@ class UserSeeder extends Seeder
                 'phone' => '0592721349',
                 'status' => 'in-active',
             ],
+            [
+                'pin' => '406976928',
+                'name' => 'محمود سمور',
+                'phone' => '0599025549',
+                'status' => 'in-active',
+            ],
             // Add more users here...
         ];
 
