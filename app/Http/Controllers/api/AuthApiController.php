@@ -127,7 +127,7 @@ class AuthApiController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()->first()], Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => $validator->errors()->first(),'status'=>400], Response::HTTP_OK);
         }
 
         $user = User::where('pin', $request->input('pin'))->first();
@@ -135,7 +135,8 @@ class AuthApiController extends Controller
         if ($user->status === 'in-active') {
             return response()->json([
                 'message' => 'حسابك غير مفعل. يرجى تفعيله قبل تسجيل الدخول',
-            ], Response::HTTP_UNAUTHORIZED);
+                'status'=>400
+            ], Response::HTTP_OK);
         }
 
         try {
@@ -157,11 +158,13 @@ class AuthApiController extends Controller
             return response()->json([
                 'message' => ' تم تسجيل الدخول بنجاح. مرحبا بك ! '.$user->name,
                 'data' => $user,
+                'status'=>200
             ], Response::HTTP_OK);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'بيانات الدخول غير صحيحة',
-            ], Response::HTTP_BAD_REQUEST);
+                'status'=>400
+            ], Response::HTTP_OK);
         }
     }
 
@@ -175,16 +178,19 @@ class AuthApiController extends Controller
             $user->token()->revoke();
             return response()->json([
                 'message' => 'تم تسجيل الخروج بنجاح. وداعًا!',
+                'status'=>200
             ], Response::HTTP_OK);
         } else {
             return response()->json([
                 'message' => 'المستخدم غير موجود أو تم الخروج بالفعل',
-            ], Response::HTTP_BAD_REQUEST);
+                'status'=>400
+            ], Response::HTTP_OK);
         }
     } catch (\Exception $e) {
         return response()->json([
             'message' => 'حدث خطأ أثناء تسجيل الخروج. يرجى المحاولة مرة أخرى',
-        ], Response::HTTP_BAD_REQUEST);
+            'status'=>400
+        ], Response::HTTP_OK);
     }
 
     }

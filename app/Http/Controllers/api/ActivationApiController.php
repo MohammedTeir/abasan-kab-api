@@ -25,15 +25,15 @@ class ActivationApiController extends Controller
             // Check the user's status
             if ($user->status === 'active') {
                 // User account is already active
-                return response()->json(['message' => 'حساب المستخدم مفعل بالفعل'], 400);
+                return response()->json(['message' => 'حساب المستخدم مفعل بالفعل' , 'status'=>400], 200);
             } elseif ($user->status === 'in-active') {
                 // User account is in-active
-                return response()->json(['message' =>'لم يتم تنشيط حساب المستخدم. يرجى استكمال عملية التنشيط.'], 200);
+                return response()->json(['message' =>'لم يتم تنشيط حساب المستخدم. يرجى استكمال عملية التنشيط.' , 'status'=>200 ], 200);
             }
 
         } else {
             // PIN does not exist
-            return response()->json(['message' => ' رقم الهوية غير صحيح  يرجى التأكد من رقم الهوية .'], 400);
+            return response()->json(['message' => ' رقم الهوية غير صحيح  يرجى التأكد من رقم الهوية .', 'status'=>400], 200);
         }
     }
 
@@ -70,7 +70,7 @@ class ActivationApiController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()->first()], Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => $validator->errors()->first(), 'status'=>400], Response::HTTP_OK);
         }
 
         $pin = $request->input('pin');
@@ -81,12 +81,12 @@ class ActivationApiController extends Controller
 
         if (!$user) {
             // User with the provided PIN does not exist
-            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رمز هوية صحيح.'], 400);
+            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رمز هوية صحيح.', 'status'=>400], 200);
         }
 
         // Check if the user's phone number is not equal to the input phone number
         if ($user->phone !== $phone) {
-            return response()->json(['message' => 'رقم الهاتف غير متطابق.'], 400);
+            return response()->json(['message' => 'رقم الهاتف غير متطابق.' , 'status'=>400 ], 200);
         }
 
         // Generate a random activation code
@@ -139,9 +139,9 @@ class ActivationApiController extends Controller
         //     }
 
         if ($response->getStatusCode() == 200) {
-            return response()->json(['message' => 'تم إرسال رمز التفعيل بنجاح.'], 200);
+            return response()->json(['message' => 'تم إرسال رمز التفعيل بنجاح.', 'status'=>200], 200);
         } else {
-            return response()->json(['message' => 'فشل في إرسال رمز التفعيل.'], 400);
+            return response()->json(['message' => 'فشل في إرسال رمز التفعيل.', 'status'=>400], 200);
         }
 
     }
@@ -160,7 +160,7 @@ class ActivationApiController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()->first()], Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => $validator->errors()->first(), 'status'=>400], Response::HTTP_OK);
         }
 
         $pin = $request->input('pin');
@@ -171,7 +171,7 @@ class ActivationApiController extends Controller
 
         if (!$user) {
             // User with the provided PIN does not exist
-            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رقم هوية صحيح.'], 400);
+            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رقم هوية صحيح.','status'=>400], 200);
         }
 
 
@@ -183,9 +183,9 @@ class ActivationApiController extends Controller
             $user->activation_code = null;
             $user->save();
 
-            return response()->json(['message' => 'تم التحقق من رمز التفعيل بنجاح. يمكنك تسجيل الدخول الآن باستخدام رقم الهوية الخاصة بك و الرمز المرسل .'], 200);
+            return response()->json(['message' => 'تم التحقق من رمز التفعيل بنجاح. يمكنك تسجيل الدخول الآن باستخدام رقم الهوية الخاصة بك و الرمز المرسل .','status'=>200], 200);
         } else {
-        return response()->json(['message' => 'رمز التفعيل غير صحيح.'], 400);
+        return response()->json(['message' => 'رمز التفعيل غير صحيح.','status'=>400], 200);
     }
     }
 
