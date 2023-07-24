@@ -2,7 +2,6 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\CorsFix;
 use App\Http\Middleware\HasAddress;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -50,8 +49,6 @@ class Kernel extends HttpKernel
             // \App\Http\Middleware\EncryptCookies::class,
 
             'throttle:60,1',
-
-            CorsFix::class,
 
         ],
     ];
