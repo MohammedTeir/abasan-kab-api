@@ -113,6 +113,7 @@ Route::get('/users/{pin}/validate', [ActivationApiController::class,'validatePin
 Route::get('/users/{pin}/{phone}/check', [ActivationApiController::class,'checkPhoneNumberOwnership']);
 Route::post('/activation-code', [ActivationApiController::class, 'sendActivationCode']);
 Route::post('/verify-activation-code', [ActivationApiController::class, 'verifyActivationCode']);
+Route::post('/reset-password', [ActivationApiController::class, 'ResetPassword']);
 
 
 Route::prefix('service-categories')->group(function () {
