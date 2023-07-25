@@ -47,7 +47,7 @@ Route::prefix('auth')->middleware('auth:api')->group(function () {
     Route::get('/my-complaints', [AuthApiController::class, 'myComplaints']);
     Route::post('/address', [AuthApiController::class, 'addAddress']);
     Route::post('/update-profile-image', [AuthApiController::class, 'updateProfileImage']);
-
+    Route::delete('/service-requests/{serviceRequest}', [AuthApiController::class, 'deleteRequest']);
 });
 
 

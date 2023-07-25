@@ -329,6 +329,7 @@ class AuthApiController extends Controller
 
         return response()->json([
             'message' => 'تم حذف طلب الخدمة بنجاح',
+            'status'=>200
         ], Response::HTTP_OK);
     }
 
