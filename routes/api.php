@@ -40,7 +40,7 @@ Route::post('auth/login',[AuthApiController::class,'login']);
 Route::prefix('auth')->middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthApiController::class, 'logout']);
     Route::get('/profile', [AuthApiController::class, 'profile']);
-    Route::post('/service-request/{serviceCategory}/{service}',[AuthApiController::class,'makeServiceRequest'])->middleware('has.address');
+    Route::post('/service-request',[AuthApiController::class,'makeServiceRequest'])->middleware('has.address');
     Route::get('/service-requests', [AuthApiController::class, 'getServiceRequests']);
     Route::post('/reset-password', [AuthApiController::class, 'resetPassword']);
     Route::post('/complaint', [AuthApiController::class, 'makeComplaint'])->middleware('has.address');
