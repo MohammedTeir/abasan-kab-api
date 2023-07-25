@@ -309,7 +309,8 @@ class AuthApiController extends Controller
         if ($serviceRequest->beneficiary_pin !== $user->pin) {
             return response()->json([
                 'message' => 'غير مسموح لك بحذف هذا الطلب',
-            ], Response::HTTP_BAD_REQUEST);
+                'status'=>400
+            ], Response::HTTP_OK);
         }
 
         foreach ($serviceRequest->images as $image) {
@@ -405,7 +406,7 @@ class AuthApiController extends Controller
             'message' => 'تم تقديم الشكوى بنجاح',
             'data' => $complaint,
             'status'=>200
-        ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 
     public function myComplaints(Request $request)
