@@ -226,22 +226,20 @@ class AuthApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function makeServiceRequest(Request $request,ServiceCategory $serviceCategory, Service $service)
+    public function makeServiceRequest(Request $request)
     {
-
-        if ($service->service_category_id !== $serviceCategory->id) {
-            return response()->json([
-                'message' =>' الخدمة لا تنتمي إلى ' . $serviceCategory->name,
-                'status'=>400
-            ], Response::HTTP_OK);
-        }
-
         $user = $request->user('api');
 
         $validator = Validator::make($request->all(), [
+            'service_category_id' => 'required|exists:service_categories,id',
+            'service_id' => 'required|exists:services,id',
             'attached_files.*' => 'required|file|mimes:jpeg,png,jpg,gif,pdf|max:2048',
         ], [
-            'attached_files.*.required' => ' المرفقات مطلوب. يرجى تحديد ملفات للمرفقات.',
+            'service_category_id.required' => 'يجب تحديد تصنيف الخدمة.',
+            'service_category_id.exists' => 'تصنيف الخدمة المحدد غير صالح.',
+            'service_id.required' => 'يجب تحديد الخدمة.',
+            'service_id.exists' => 'الخدمة المحددة غير صالحة.',
+            'attached_files.*.required' => ' المرفقات مطلوبة. يرجى تحديد ملفات للمرفقات.',
             'attached_files.*.file' => 'يجب أن تكون المرفقات ملفات.',
             'attached_files.*.mimes' => 'صيغة الملفات المسموح بها هي: jpeg, png, jpg, gif, pdf فقط.',
             'attached_files.*.max' => 'يجب أن يكون حجم الملفات أقل من 2 ميجابايت.',
@@ -249,12 +247,20 @@ class AuthApiController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' =>$validator->errors()->first(),
-                'status'=>400
+                'message' => $validator->errors()->first(),
+                'status' => 400
             ], Response::HTTP_OK);
         }
 
+        $serviceCategory = ServiceCategory::findOrFail($request->input('service_category_id'));
+        $service = Service::findOrFail($request->input('service_id'));
 
+        if ($service->service_category_id !== $serviceCategory->id) {
+            return response()->json([
+                'message' => 'الخدمة لا تنتمي إلى ' . $serviceCategory->name,
+                'status' => 400
+            ], Response::HTTP_OK);
+        }
 
         $serviceRequest = ServiceRequest::create([
             'service_category_id' => $serviceCategory->id,
@@ -262,44 +268,40 @@ class AuthApiController extends Controller
             'beneficiary_pin' => $user->pin,
         ]);
 
-         // Create a notification for the user
+        // Create a notification for the user
         $notification = Notification::create([
             'user_pin' => $user->pin,
-            'message' =>' قام بطلب خدمة ' . $service->service_name,
+            'message' => ' قام بطلب خدمة ' . $service->service_name,
         ]);
 
         $notification->save();
-
         $serviceRequest->save();
 
         if ($request->hasFile('attached_files')) {
-
             $serviceRequestFiles = $request->file('attached_files');
             $currentYear = date('Y');
             $currentMonth = date('m');
 
-             foreach ($serviceRequestFiles as $attached_file) {
-
+            foreach ($serviceRequestFiles as $attached_file) {
                 $ex = $attached_file->getClientOriginalExtension();
                 $name = 'attachedFile-' . time() * rand(1, 10000) . '.' . $ex;
                 $path = "/media/services/{$serviceCategory->name}/{$service->service_name}/الطلبات/{$currentYear}-{$currentMonth}/{$user->pin}/";
 
-
                 $image = new Image();
-                $image->url = $path.$name;
+                $image->url = $path . $name;
                 $serviceRequest->images()->save($image);
 
-                $attached_file->storeAs($path,$name,'s3');
+                $attached_file->storeAs($path, $name, 's3');
             }
         }
-
 
         return response()->json([
             'message' => 'تم إنشاء طلب الخدمة بنجاح',
             'data' => $serviceRequest,
-            'status'=>200
+            'status' => 200
         ], Response::HTTP_OK);
     }
+
 
     public function deleteRequest(ServiceRequest $serviceRequest, Request $request)
     {
