@@ -53,7 +53,7 @@ class AuthApiController extends Controller
 
 
             // Return a response or redirect as needed
-            return response()->json(['message' => 'تم تحديث الصورة الشخصية بنجاح'], Response::HTTP_OK);
+            return response()->json(['message' => 'تم تحديث الصورة الشخصية بنجاح','status'=>200], Response::HTTP_OK);
     }
 
 
@@ -65,7 +65,7 @@ class AuthApiController extends Controller
 
         if (!$user) {
             // User with the provided PIN does not exist
-            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رقم هوية صحيح'], 400);
+            return response()->json(['message' => 'رقم الهوية غير صحيح. يرجى إدخال رقم هوية صحيح','status'=>400], 200);
         }
 
         // Generate a random activation code
@@ -104,9 +104,9 @@ class AuthApiController extends Controller
 
 
         if ($response->getStatusCode() == 200) {
-                    return response()->json(['message' => 'تم إرسال رمز التفعيل بنجاح'], 200);
+                    return response()->json(['message' => 'تم إرسال رمز التفعيل بنجاح','status'=>200], 200);
                 } else {
-                    return response()->json(['message' => 'فشل في إرسال رمز التفعيل'], 400);
+                    return response()->json(['message' => 'فشل في إرسال رمز التفعيل','status'=>400], 200);
                 }
 
 
@@ -232,7 +232,8 @@ class AuthApiController extends Controller
         if ($service->service_category_id !== $serviceCategory->id) {
             return response()->json([
                 'message' =>' الخدمة لا تنتمي إلى ' . $serviceCategory->name,
-            ], Response::HTTP_BAD_REQUEST);
+                'status'=>400
+            ], Response::HTTP_OK);
         }
 
         $user = $request->user('api');
@@ -249,7 +250,8 @@ class AuthApiController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' =>$validator->errors()->first(),
-            ], Response::HTTP_BAD_REQUEST);
+                'status'=>400
+            ], Response::HTTP_OK);
         }
 
 
@@ -295,6 +297,7 @@ class AuthApiController extends Controller
         return response()->json([
             'message' => 'تم إنشاء طلب الخدمة بنجاح',
             'data' => $serviceRequest,
+            'status'=>200
         ], Response::HTTP_OK);
     }
 
@@ -384,7 +387,8 @@ class AuthApiController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => $validator->errors()->first(),
-            ], Response::HTTP_BAD_REQUEST);
+                'status'=>400
+            ], Response::HTTP_OK);
         }
 
         $user=$request->user('api');
@@ -399,6 +403,7 @@ class AuthApiController extends Controller
         return response()->json([
             'message' => 'تم تقديم الشكوى بنجاح',
             'data' => $complaint,
+            'status'=>200
         ], Response::HTTP_CREATED);
     }
 
@@ -439,6 +444,7 @@ class AuthApiController extends Controller
 
         return response()->json([
             'message' => 'تم اضافةالعنوان بنجاح',
+            'status'=>200
         ], Response::HTTP_OK);
     }
 
