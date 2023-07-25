@@ -233,12 +233,16 @@ class AuthApiController extends Controller
         $validator = Validator::make($request->all(), [
             'service_category_id' => 'required|exists:service_categories,id',
             'service_id' => 'required|exists:services,id',
+            'attached_files' => 'required|array|min:1', // Ensures the attached_files is an array and has at least one item
             'attached_files.*' => 'required|file|mimes:jpeg,png,jpg,gif,pdf|max:2048',
         ], [
             'service_category_id.required' => 'يجب تحديد تصنيف الخدمة.',
             'service_category_id.exists' => 'تصنيف الخدمة المحدد غير صالح.',
             'service_id.required' => 'يجب تحديد الخدمة.',
             'service_id.exists' => 'الخدمة المحددة غير صالحة.',
+            'attached_files.required' => 'المرفقات مطلوبة. يرجى تحديد ملفات للمرفقات.',
+            'attached_files.array' => 'المرفقات يجب أن تكون قائمة من الملفات.',
+            'attached_files.min' => 'المرفقات مطلوبة. يرجى تحديد ملفات للمرفقات.',
             'attached_files.*.required' => ' المرفقات مطلوبة. يرجى تحديد ملفات للمرفقات.',
             'attached_files.*.file' => 'يجب أن تكون المرفقات ملفات.',
             'attached_files.*.mimes' => 'صيغة الملفات المسموح بها هي: jpeg, png, jpg, gif, pdf فقط.',
